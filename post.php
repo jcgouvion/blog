@@ -48,7 +48,7 @@ if (isset($_GET['id'])) {
 	{
 		?>
 		
-			<li><?php echo $comment['user_id']; ?></li>
+			<li>By: <?php echo $comment['user_id']; ?></li>
 			<li><?php echo $comment['post_id']; ?></li>
 			<li><?php echo $comment['body']; ?></li>	
 			<li>Posted on: <?php echo date ('F d, Y h:iA', $comment['created_ts']);?></li>
@@ -68,6 +68,7 @@ if (isset($_GET['id'])) {
 <button type="submit" class="btn btn-default">
 Post
 </button>
+
 </form>
 <script>
 $(function(){
