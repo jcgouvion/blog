@@ -52,6 +52,7 @@ if (isset($_GET['id'])) {
 			<li><?php echo $comment['post_id']; ?></li>
 			<li><?php echo $comment['body']; ?></li>	
 			<li><?php echo date ('F d, Y h:iA', $comment['created_ts']);?></li>
+			<hr>
 			
 		
 		<?php

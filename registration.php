@@ -1,5 +1,6 @@
 
 	<?php
+		
 		require_once 'backend/user_functions.php';
 		if(isset($_POST['user_id']) AND 
 		
