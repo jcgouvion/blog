@@ -1,11 +1,17 @@
 <?php
 include_once 'header.php';
 include_once 'backend/post_functions.php';
+include_once 'backend/sessions.php';
 if (isset($_GET['id'])) {
+	
 	$post_id = $_GET['id'];
 	$posts = get_post($post_id);
 	$post = $posts[0];
+	
+	$comments = get_post_comments($post_id);
+	print_r ($comments);
 }
+
 
 ?>
 <header class="intro-header" style="background-image: url('img/headers/<?php echo $post['picture']; ?>')">
@@ -38,7 +44,7 @@ if (isset($_GET['id'])) {
 
 <form id="comment-form" role="form">
 <div class="form-group">
-<label for="comment"><?php echo $post['comment']; ?></label>
+<label for="comment">Comments</label>
 <textarea class="form-control" id="comment" rows="5"></textarea>
 </div>
 
@@ -46,7 +52,31 @@ if (isset($_GET['id'])) {
 Create
 </button>
 </form>
-
+<script>
+$(function(){
+	$('#comment-form').submit(function() {
+		var confirm_result = confirm('Do you want to add this comment?');
+		if(confirm_result) {
+			var textarea = $('#comment').val();
+			
+			var data = {
+				user_id : <?php echo $_SESSION['user']['user_id'];?>,
+				post_id : <?php echo $post_id;?>,
+				comment : textarea 
+			}
+		
+			$.post('/ajax/add_comment.php', data,
+			function(response) {
+				if(response == 1) {
+					
+				}
+			});
+		}
+		return false;
+	});
+});
+		
+</script>
 <?php
 	include_once 'footer.php';
 ?>

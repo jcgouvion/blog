@@ -1,10 +1,7 @@
-<?php
-include_once 'admin-header.php';?>
+<?php include_once 'admin-header.php';?>
 <?php require_once '../backend/post_functions.php';
-
 $post_id = $_GET['id'];
 $message = '';
-
 if (isset($_POST['title']) AND isset($_POST['body'])) {
 	
 	$picture = '';
@@ -20,15 +17,12 @@ if (isset($_POST['title']) AND isset($_POST['body'])) {
 	//assign the filename to $Picture
 	$picture =$_FILES['photo']['name'];
 }
-
 	$result = update_post($_POST['title'], $_POST['body'], $_SESSION['user']['user_id'], $picture);
-
 	if (is_array($result)) {
 		echo 'added new post';
 	} else {
 		echo $result;
 	}
-
 }
 $posts = get_post($post_id);
 $post = $posts[0];
