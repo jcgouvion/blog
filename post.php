@@ -9,7 +9,7 @@ if (isset($_GET['id'])) {
 	$post = $posts[0];
 	
 	$comments = get_post_comments($post_id);
-	print_r ($comments);
+	
 }
 
 
@@ -28,6 +28,8 @@ if (isset($_GET['id'])) {
 </div>
 </div>
 </header>
+
+
 <!-- Post Content -->
 <article>
 <div class="container">
@@ -41,7 +43,21 @@ if (isset($_GET['id'])) {
 </article>
 
 <hr>
-
+<?php
+	foreach($comments as $comment)
+	{
+		?>
+		
+			<li><?php echo $comment['user_id']; ?></li>
+			<li><?php echo $comment['post_id']; ?></li>
+			<li><?php echo $comment['body']; ?></li>	
+			<li><?php echo date ('F d, Y h:iA', $comment['created_ts']);?></li>
+			
+		
+		<?php
+		}
+	?>
+	
 <form id="comment-form" role="form">
 <div class="form-group">
 <label for="comment">Comments</label>
@@ -49,7 +65,7 @@ if (isset($_GET['id'])) {
 </div>
 
 <button type="submit" class="btn btn-default">
-Create
+Post
 </button>
 </form>
 <script>
@@ -67,8 +83,9 @@ $(function(){
 		
 			$.post('/ajax/add_comment.php', data,
 			function(response) {
-				if(response == 1) {
-					
+				if(response == 0) {
+					var li = $('<li>').html(response);
+					$('#comment-form').append(li);
 				}
 			});
 		}
